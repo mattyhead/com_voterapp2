@@ -4,18 +4,12 @@
     'use strict'
 
     // true init
-    //    $(function() {
-    function r(f) {
-        /in/.test(document.readyState) ? setTimeout('r(' + f + ')', 9) : f()
-    }
-
-    r(function() {
+    $(function() {
         setupMultipleSelects();
         $(".office-level-accordion > dd").hide();
         $(".office-accordion > dd").hide();
         initialize();
     });
-    //    });
 
     var ie = /msie ([0-9]+)\.[0-9]+/.exec(navigator.userAgent.toLowerCase()),
         directionsService = new google.maps.DirectionsService(),
