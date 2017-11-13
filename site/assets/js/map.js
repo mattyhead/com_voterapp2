@@ -4,12 +4,18 @@
     'use strict'
 
     // true init
-    $(function() {
+    //    $(function() {
+    function r(f) {
+        /in/.test(document.readyState) ? setTimeout('r(' + f + ')', 9) : f()
+    }
+
+    r(function() {
         setupMultipleSelects();
         $(".office-level-accordion > dd").hide();
         $(".office-accordion > dd").hide();
         initialize();
     });
+    //    });
 
     var ie = /msie ([0-9]+)\.[0-9]+/.exec(navigator.userAgent.toLowerCase()),
         directionsService = new google.maps.DirectionsService(),
@@ -21,7 +27,7 @@
         ZOOM = 13,
         BASEMAP = '//tiles.arcgis.com/tiles/fLeGjb7u4uXqeF9q/arcgis/rest/services/CityBasemap/MapServer',
         BASEMAP_LABELS = '//tiles.arcgis.com/tiles/fLeGjb7u4uXqeF9q/arcgis/rest/services/CityBasemap_Labels/MapServer',
-        runonce = [],
+        Runonce = [],
         Lmap,
         Labels = [],
         Indexes = [],
@@ -78,7 +84,7 @@
             "nav-maps": function(a) {
                 $("#map-canvas").show();
                 $("#sample-pdf").hide();
-                runonce.bindDistrictSelectEvent(a);
+                Runonce.bindDistrictSelectEvent(a);
             },
             "nav-download-ballot": function(a) {
                 getSampleBallot(a.ward, a.division);
@@ -265,6 +271,8 @@
             content += '<tr><td><input type="radio" name="address_vals" value="-1">' + Joomla.JText._("MODALBOX LAST OPTION") + "</td></tr>";
             content += "</table>"
 
+
+
             popupFunctionAddress(content);
         })
     }
@@ -371,7 +379,7 @@
                                     z.coordinates.push(C.split(","));
                                 });
                             });
-                            runonce.populateDistrictSelectList(z);
+                            Runonce.populateDistrictSelectList(z);
                             y = function(A) {
                                 $("option[value=" + A + "]").prop("disabled", false);
                             };
@@ -446,7 +454,7 @@
                         e.coordinates.push(h.split(","));
                     });
                 });
-                runonce.populateDistrictSelectList(e);
+                Runonce.populateDistrictSelectList(e);
                 d = function(f) {
                     $("option[value=" + f + "]").prop("disabled", false);
                 };
@@ -1145,7 +1153,7 @@
         a.append($("<option />").text(d).val(c).prop("disabled", !!b));
     }
 
-    runonce.populateDistrictSelectList = function(b) {
+    Runonce.populateDistrictSelectList = function(b) {
         var a = $("#maps-district-type");
         a.empty();
         addDistrictToList(a, "Division " + b.ward + b.division, "DIVISION");
@@ -1154,10 +1162,10 @@
         addDistrictToList(a, "State Rep District " + b.stateRepresentativeDistrict, "STATE_REP", true);
         addDistrictToList(a, "State Senate District " + b.stateSenateDistrict, "STATE_SENATE", true);
         addDistrictToList(a, "US Congress PA-" + b.congressionalDistrict, "US_CONGRESS", true);
-        runonce.populateDistrictSelectList = function() {}
+        Runonce.populateDistrictSelectList = function() {}
     }
 
-    runonce.bindDistrictSelectEvent = function(b) {
+    Runonce.bindDistrictSelectEvent = function(b) {
         var a = $("#maps-district-type");
         a.unbind("change");
         a.change(function() {
@@ -1191,7 +1199,7 @@
                     break;
             }
         });
-        runonce.bindDistrictSelectEvent = function() {}
+        Runonce.bindDistrictSelectEvent = function() {}
     }
 
     function tabFunc(a) {
@@ -1556,7 +1564,7 @@
             display: "inline",
             position: "absolute"
         });
-        if (runonce.populateSelect2Lists) {
+        if (Runonce.populateSelect2Lists) {
             populateSelect2Lists("#custom-divisions", Divisions.city_precincts, "division_id", baseUri + "index.php?option=com_divisions&view=all");
             populateSelect2Lists("#custom-wards", Divisions.city_wards, "ward", baseUri + "index.php?option=com_divisions&view=ward");
             populateSelect2Lists("#custom-council-districts", Divisions.city_council, "council_district", baseUri + "index.php?option=com_divisions&view=council");
@@ -1565,7 +1573,7 @@
             populateSelect2Lists("#custom-uscongress-districts", Divisions.federal_house, "congressional_district", baseUri + "index.php?option=com_divisions&view=uscongress");
         }
         console.log('--------------Divisions -------------------', 'you wanted to see this', Divisions)
-        runonce.populateSelect2Lists = false
+        Runonce.populateSelect2Lists = false
         addressEntered(2);
     }
 
@@ -1600,7 +1608,7 @@
     $.support.cors = true;
 
     // functions to allown once only:
-    runonce.populateSelect2Lists = true
+    Runonce.populateSelect2Lists = true
 
     String.prototype.toProperCase = function() {
         return this.replace(/\w\S*/g, function(a) {
