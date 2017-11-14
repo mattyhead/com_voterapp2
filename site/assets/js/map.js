@@ -225,7 +225,7 @@
 
     // begin ajax functions
     function onHomeAddress() {
-        funcName(this)
+        console.log('onHomeAddress')
             // independant services
         var
             indexer = getIndexes(precinct),
@@ -280,7 +280,7 @@
     }
 
     function addressEntered(m) {
-                funcName(this)
+                console.log('addressEntered')
 
         /*        if (!searchBox || !addressIsProvided(document.getElementById("target"))) {
                     return false;
@@ -426,7 +426,7 @@
     }
 
     function byPassGoogle() {
-                funcName(this)
+                console.log('byPassGoogle')
 
         if (!precinct) {
             invalidAddress();
@@ -500,7 +500,7 @@
     }
 
     function getPollingPlace(a, j) {
-                funcName(this)
+                console.log('getPollingPlace',a, j)
 
         var i, f, e, d, h, b, k, l, c,
             pollingPlaceMain = $("#polling-place-main")
@@ -560,7 +560,7 @@
     }
 
     function getOfficials(e, d, b, a, c, f) {
-                funcName(this)
+                console.log('getOfficials',e, d, b, a, c, f)
 
         $.ajax({
             type: "GET",
@@ -725,7 +725,7 @@
 
     // functions
     function addressComplete() {
-                funcName(this)
+                console.log('addressComplete')
 
         if (!target) return false;
         $(target).autocomplete({
@@ -867,8 +867,8 @@
         return deferred.promise();
     }
 
-    function getWardShape(input) {        funcName(this)
-
+    function getWardShape(input) {
+        console.log('getWardShape', input)
         var deferred = $.Deferred(),
             service = Services.shape_city_ward
         $.getJSON(service.url(input), service.params).done(function(c) {
@@ -902,8 +902,8 @@
         return deferred.promise();
     };
 
-    function getStateRepShape(input) {        funcName(this)
-
+    function getStateRepShape(input) {
+        console.log('getStateRepShape', input)
         var deferred = $.Deferred(),
             service = Services.shape_state_house
         $.getJSON(service.url(input), service.params).done(function(c) {
@@ -920,8 +920,8 @@
         return deferred.promise();
     };
 
-    function getStateSenateShape(input) {        funcName(this)
-
+    function getStateSenateShape(input) {
+        console.log('getStateSenateShape', input)
         var deferred = $.Deferred(),
             service = Services.shape_state_senate
         $.getJSON(service.url(input), service.params).done(function(c) {
@@ -938,8 +938,8 @@
         return deferred.promise();
     };
 
-    function getUsCongressShape(input) {        funcName(this)
-
+    function getUsCongressShape(input) {
+        console.log('getUsCongressShape', input)
         var deferred = $.Deferred(),
             service = Services.shape_federal_house
         $.getJSON(service.url(input), service.params).done(function(c) {
@@ -958,8 +958,8 @@
     // end ajax functions
 
     // map functions
-    function clearShapes() {        funcName(this)
-
+    function clearShapes() {
+        console.log('getUsCongressShape')
         Shapes.forEach(function(a) {
             a.setMap(null);
         });
@@ -970,13 +970,13 @@
         Labels = [];
     }
 
-    function resetBounds() {        funcName(this)
-
+    function resetBounds() {
+        console.log('resetBounds')
         bounds = new google.maps.LatLngBounds();
     }
 
-    function drawMap(a, b) {        funcName(this)
-
+    function drawMap(a, b) {
+        console.log('drawMap')
         // if (!b) {
         //     clearShapes();
         // }
@@ -1019,11 +1019,10 @@
         //     Shapes.push(c);
         // });
         // map.fitBounds(bounds);
-        console.log('todo:  drawMap')
     }
 
-    function dropOfficePin(b) {        funcName(this)
-
+    function dropOfficePin(b) {
+        console.log('dropOfficePin')
         //for (var a = 2; a < Markers.length; a++) {
         //    markers[a].setMap(null);
         //}
@@ -1056,8 +1055,8 @@
         console.log('todo: dropOfficePin')
     }
 
-    function dropPollingPin(c) {        funcName(this)
-
+    function dropPollingPin(c) {
+        console.log('dropPollingPin', c)
         //if (getHash() === "elected-officials") {
         //    for (var b = 1, a; a = markers[b]; b++) {
         //        a.setMap(null);
@@ -1094,18 +1093,16 @@
         //        alert("Geocode of polling place was not successful for the following reason: " + e);
         //    }
         //});
-        console.log('todo: dropPollingPin')
     }
 
-    function reCenterMap() {        funcName(this)
-
+    function reCenterMap() {
+        console.log('reCenterMap')
         // map.setCenter(new google.maps.LatLng(39.95, -75.1642));
-        console.log('todo: reCenterMap')
     }
 
     function popupFunctionAddress(content) {
         //function popupFunctionAddress(c, d, a, content) {
-        console.log('todo: popupFunctionAddress', content)
+        console.log('popupFunctionAddress', content)
 
         $("#multiple_address_tbl").html(content);
         //$("#cstm-score-address-popup").dialog({
@@ -1158,8 +1155,8 @@
     // end map functions
 
     // ui functions
-    function showInfos() {        funcName(this)
-
+    function showInfos() {
+        console.log('showInfos')
         $("#polling-place-intro").hide();
         $("#polling-place-info").show();
         $("#elected-officials-intro").hide();
@@ -1168,17 +1165,18 @@
         $("#maps-info").show();
     }
 
-    function addressIsProvided(a) {        funcName(this)
-
+    function addressIsProvided(a) {
+        console.log('addressIsProvided', a)
         return a.value && a.value !== $(a).attr("placeholder") && a.value !== "Enter a query";
     }
 
-    function addDistrictToList(a, d, c, b) {        funcName(this)
-
+    function addDistrictToList(a, d, c, b) {
+        console.log('addDistrictToList', a, d, c, b)
         a.append($("<option />").text(d).val(c).prop("disabled", !!b));
     }
 
-    Runonce.populateDistrictSelectList = function(b) {        funcName(this)
+    Runonce.populateDistrictSelectList = function(b) {
+        console.log('Runonce.populateDistrictSelectList', b)
 
         var a = $("#maps-district-type");
         a.empty();
@@ -1191,8 +1189,8 @@
         Runonce.populateDistrictSelectList = function() {}
     }
 
-    Runonce.bindDistrictSelectEvent = function(b) {        funcName(this)
-
+    Runonce.bindDistrictSelectEvent = function(b) {
+        console.log('Runonce.bindDistrictSelectEvent', b)
         var a = $("#maps-district-type");
         a.unbind("change");
         a.change(function() {
@@ -1229,14 +1227,14 @@
         Runonce.bindDistrictSelectEvent = function() {}
     }
 
-    function tabFunc(a) {        funcName(this)
-
+    function tabFunc(a) {
+        console.log('Runonce.bindDistrictSelectEvent', b)
         resetBounds();
         return TabFunctions[$("#nav").find("li.active").attr("id")](a);
     }
 
-    function getPolygonCentroid(m) {        funcName(this)
-
+    function getPolygonCentroid(m) {
+        console.log('getPolygonCentroid', b)
         //var d = 0,
         //    h = 0,
         //    g = 0,
@@ -1256,16 +1254,15 @@
         //}
         //e = d * 3;
         //return new google.maps.LatLng(g / e, h / e);
-        console.log('todo: getPolygonCentroid')
     }
 
-    function getHash() {        funcName(this)
-
+    function getHash() {
+        console.log('getHash')
         return window.location.hash.substring(1);
     }
 
-    function setMapOptionsForPrint(a) {        funcName(this)
-
+    function setMapOptionsForPrint(a) {
+        console.log('setMapOptionsForPrint')
         //map.setOptions({
         //    mapTypeControl: !a,
         //    zoomControl: !a,
@@ -1274,8 +1271,8 @@
         //});
     }
 
-    function printMapInIE() {        funcName(this)
-
+    function printMapInIE() {
+        console.log('printMapInIE')
         var a = function() {
             setMapOptionsForPrint(true);
             var b = $("#map-canvas"),
@@ -1300,8 +1297,8 @@
         setTimeout(a, 500);
     }
 
-    function printMapInOther() {        funcName(this)
-
+    function printMapInOther() {
+        console.log('printMapInOther')
         setMapOptionsForPrint(true);
         var a = function() {
             var f = [];
@@ -1328,8 +1325,8 @@
         setTimeout(a, 500);
     };
 
-    function printMap() {        funcName(this)
-
+    function printMap() {
+        console.log('printMap')
         if (ie && ie[1] < 9) {
             printMapInIE();
         } else {
@@ -1337,8 +1334,8 @@
         }
     };
 
-    function setDirectionsText(a) {        funcName(this)
-
+    function setDirectionsText(a) {
+        console.log('printMap')
         var b = $("div.directions-text"),
             c = $("<table></table>");
         b.empty();
@@ -1356,14 +1353,14 @@
     }
 
     // my utils
-    function grouper(markers) {        funcName(this)
-
+    function grouper(markers) {
+        console.log('grouper')
         var group = new L.featureGroup(markers)
         Lmap.fitBounds(group.getBounds())
     }
 
-    function coordsSwap(coords) {        funcName(this)
-
+    function coordsSwap(coords) {
+        console.log('coordsSwap')
         var tmp = []
         for (var i = 0; i < coords.length - 1; i++) {
             tmp.push([coords[i][1], coords[i][0]])
@@ -1371,37 +1368,34 @@
         return tmp
     }
 
-    function pad(n, width, z) {        funcName(this)
-
+    function pad(n, width, z) {
         n = n + '' // cast to string
         z = z || '0' // default padding: '0'
         width = width || 2 // default digits: 2
         return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n
     }
 
-    function s4() {        funcName(this)
-
+    function s4() {
         return Math.floor((1 + Math.random()) * 65536).toString(16).substring(1);
     }
 
-    function guid() {        funcName(this)
-
+    function guid() {
         return s4() + s4() + "-" + s4() + "-" + s4() + "-" + s4() + "-" + s4() + s4() + s4();
     }
 
-    function precinctIsNotMappable(a) {        funcName(this)
-
+    function precinctIsNotMappable(a) {
+        console.log('precinctIsNotMappable')
         return false;
     }
 
-    function invalidAddress() {        funcName(this)
-
+    function invalidAddress() {
+        console.log('invalidAddress')
         precinct = "";
         alert("The address you have chosen is invalid. Please select an address in Philadelphia.");
     }
 
-    function setupMultipleSelects() {        funcName(this)
-
+    function setupMultipleSelects() {
+        console.log('setupMultipleSelects')
         var b = function(c, d) {
             return d.toUpperCase().indexOf(c.toUpperCase()) == 0;
         };
@@ -1416,13 +1410,13 @@
         $("#custom-uscongress-districts").select2(a);
     }
 
-    function clearCustomMap() {        funcName(this)
-
+    function clearCustomMap() {
+        console.log('clearCustomMap')
         $(".custom-map-selector").val([]).change();
     }
 
-    function updateCustomMap() {        funcName(this)
-
+    function updateCustomMap() {
+        console.log('updateCustomMap')
         clearShapes();
         reCenterMap();
         var f = [],
@@ -1474,8 +1468,8 @@
         });
     }
 
-    function getSampleBallot(a, j) {        funcName(this)
-
+    function getSampleBallot(a, j) {
+        console.log('getSampleBallot',a,j)
         var c = a + "-" + j;
         var l = $("#download-ballot-intro");
         if (typeof ward_divisions_files === "undefined" || !ward_divisions_files) {
@@ -1530,8 +1524,8 @@
         $(el).attr("target", "");
     }
 
-    function getMessageAndText(b) {        funcName(this)
-
+    function getMessageAndText(b) {
+        console.log('getMessageAndText', b)
         var a = {
             "DOWNLOAD BALLOT INTRO TEXT NO BALLOT": Joomla.JText._("DOWNLOAD BALLOT INTRO TEXT NO BALLOT"),
             "OTHER SAMPLE BALLOTS TEXT": Joomla.JText._("OTHER SAMPLE BALLOTS TEXT"),
@@ -1548,8 +1542,8 @@
         return a[b];
     }
 
-    function showBallotDropdown() {        funcName(this)
-
+    function showBallotDropdown() {
+        console.log('showBallotDropdown')
         var b = $("#ballots_dropdown").val();
         if (b != "") {
             var a = baseUri + "ballot_paper/" + b + ".pdf";
@@ -1560,8 +1554,8 @@
         }
     }
 
-    function getQueryParams(a) {        funcName(this)
-
+    function getQueryParams(a) {
+        console.log('getQueryParams')
         a = a.split("+").join(" ");
         var d = {},
             c, b = /[?&]?([^=]+)=([^&]*)/g;
@@ -1571,8 +1565,8 @@
         return d;
     }
 
-    function tabsReset() {        funcName(this)
-
+    function tabsReset() {
+        console.log('tabsReset')
         clearShapes();
         $("#nav-elected-officials").removeClass("active");
         $("#nav-polling-place").removeClass("active");
@@ -1584,8 +1578,8 @@
         $("#download-ballot").hide();
     }
 
-    function showTabElectedOfficials() {        funcName(this)
-
+    function showTabElectedOfficials() {
+        console.log('showTabElectedOfficials')
         tabsReset();
         $("#nav-elected-officials").addClass("active");
         $("#elected-officials").show();
@@ -1596,8 +1590,8 @@
         addressEntered(2);
     }
 
-    function showTabPollingplace() {        funcName(this)
-
+    function showTabPollingplace() {
+        console.log('showTabPollingplace')
         tabsReset();
         $("#nav-polling-place").addClass("active");
         $("#polling-place").show();
@@ -1608,8 +1602,8 @@
         addressEntered(2);
     }
 
-    function showTabMaps() {        funcName(this)
-
+    function showTabMaps() {
+        console.log('showTabMaps')
         tabsReset();
         $("#nav-maps").addClass("active");
         $("#maps").show();
@@ -1631,7 +1625,7 @@
     }
 
     function showTabBallot() {
-        funcName(this)
+        console.log('showTabBallot')
         tabsReset();
         $("#nav-download-ballot").addClass("active");
         $("#download-ballot").show();
@@ -1640,7 +1634,7 @@
     }
 
     function populateSelect2Lists(o, p, r, q) {
-        funcName(this)
+        console.log('populateSelect2Lists',o, p, r, q)
         var s = $(o);
         if (p) {
             console.log('p', p)
@@ -1672,7 +1666,7 @@
     };
 
     function onhashChange() {
-        funcName(this)
+        console.log('onhashChange')
         var hash = getHash();
         switch (hash) {
             case "elected-officials":
@@ -1692,7 +1686,7 @@
 
     /* see above */
     function initialize() {
-        funcName(this)
+        console.log('initialize')
         onhashChange();
         /*
         --objects:  shopping list
