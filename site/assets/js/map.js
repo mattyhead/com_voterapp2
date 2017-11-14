@@ -215,18 +215,18 @@
             }
         }
 
-        function funcName(that) {
-            var ownName = that.arguments.callee.toString();
-            ownName = ownName.substr('function '.length);        // trim off "function "
-            ownName = ownName.substr(0, ownName.indexOf('('));        // trim off everything after the function name
-            console.log(ownName);
-        }
+    function funcName(that) {
+        var ownName = that.arguments.callee.toString();
+        ownName = ownName.substr('function '.length); // trim off "function "
+        ownName = ownName.substr(0, ownName.indexOf('(')); // trim off everything after the function name
+        console.log(ownName);
+    }
 
 
     // begin ajax functions
     function onHomeAddress() {
         console.log('onHomeAddress')
-            // independant services
+        // independant services
         var
             indexer = getIndexes(precinct),
             home = getHome(Addresses.home),
@@ -280,7 +280,7 @@
     }
 
     function addressEntered(m) {
-                console.log('addressEntered')
+        console.log('addressEntered')
 
         /*        if (!searchBox || !addressIsProvided(document.getElementById("target"))) {
                     return false;
@@ -426,7 +426,7 @@
     }
 
     function byPassGoogle() {
-                console.log('byPassGoogle')
+        console.log('byPassGoogle')
 
         if (!precinct) {
             invalidAddress();
@@ -500,7 +500,7 @@
     }
 
     function getPollingPlace(a, j) {
-                console.log('getPollingPlace',a, j)
+        console.log('getPollingPlace', a, j)
 
         var i, f, e, d, h, b, k, l, c,
             pollingPlaceMain = $("#polling-place-main")
@@ -560,7 +560,7 @@
     }
 
     function getOfficials(e, d, b, a, c, f) {
-                console.log('getOfficials',e, d, b, a, c, f)
+        console.log('getOfficials', e, d, b, a, c, f)
 
         $.ajax({
             type: "GET",
@@ -725,7 +725,7 @@
 
     // functions
     function addressComplete() {
-                console.log('addressComplete')
+        console.log('addressComplete')
 
         if (!target) return false;
         $(target).autocomplete({
@@ -733,8 +733,8 @@
             source: function(request, callback) {
                 var service = Services.address_completer,
                     space = request.term.indexOf(' ')
-                    // let's not run until we've entered a street number
-                    // and the first letter of the street
+                // let's not run until we've entered a street number
+                // and the first letter of the street
                 if (space > 0 && space < request.term.length - 1) {
                     $.getJSON(service.url(request.term), service.params, function(response) {
                         if (response.status == "success") {
@@ -1469,7 +1469,7 @@
     }
 
     function getSampleBallot(a, j) {
-        console.log('getSampleBallot',a,j)
+        console.log('getSampleBallot', a, j)
         var c = a + "-" + j;
         var l = $("#download-ballot-intro");
         if (typeof ward_divisions_files === "undefined" || !ward_divisions_files) {
@@ -1634,7 +1634,7 @@
     }
 
     function populateSelect2Lists(o, p, r, q) {
-        console.log('populateSelect2Lists',o, p, r, q)
+        console.log('populateSelect2Lists', o, p, r, q)
         var s = $(o);
         if (p) {
             console.log('p', p)
