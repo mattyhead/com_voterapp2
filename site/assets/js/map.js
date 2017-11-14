@@ -215,8 +215,8 @@
             }
         }
 
-        function funcName() {
-            var ownName = arguments.callee.toString();
+        function funcName(that) {
+            var ownName = that.arguments.callee.toString();
             ownName = ownName.substr('function '.length);        // trim off "function "
             ownName = ownName.substr(0, ownName.indexOf('('));        // trim off everything after the function name
             console.log(ownName);
@@ -225,7 +225,7 @@
 
     // begin ajax functions
     function onHomeAddress() {
-        funcName()
+        funcName(this)
             // independant services
         var
             indexer = getIndexes(precinct),
@@ -280,7 +280,7 @@
     }
 
     function addressEntered(m) {
-                funcName()
+                funcName(this)
 
         /*        if (!searchBox || !addressIsProvided(document.getElementById("target"))) {
                     return false;
@@ -426,7 +426,7 @@
     }
 
     function byPassGoogle() {
-                funcName()
+                funcName(this)
 
         if (!precinct) {
             invalidAddress();
@@ -500,7 +500,7 @@
     }
 
     function getPollingPlace(a, j) {
-                funcName()
+                funcName(this)
 
         var i, f, e, d, h, b, k, l, c,
             pollingPlaceMain = $("#polling-place-main")
@@ -560,7 +560,7 @@
     }
 
     function getOfficials(e, d, b, a, c, f) {
-                funcName()
+                funcName(this)
 
         $.ajax({
             type: "GET",
@@ -725,7 +725,7 @@
 
     // functions
     function addressComplete() {
-                funcName()
+                funcName(this)
 
         if (!target) return false;
         $(target).autocomplete({
@@ -867,7 +867,7 @@
         return deferred.promise();
     }
 
-    function getWardShape(input) {        funcName()
+    function getWardShape(input) {        funcName(this)
 
         var deferred = $.Deferred(),
             service = Services.shape_city_ward
@@ -902,7 +902,7 @@
         return deferred.promise();
     };
 
-    function getStateRepShape(input) {        funcName()
+    function getStateRepShape(input) {        funcName(this)
 
         var deferred = $.Deferred(),
             service = Services.shape_state_house
@@ -920,7 +920,7 @@
         return deferred.promise();
     };
 
-    function getStateSenateShape(input) {        funcName()
+    function getStateSenateShape(input) {        funcName(this)
 
         var deferred = $.Deferred(),
             service = Services.shape_state_senate
@@ -938,7 +938,7 @@
         return deferred.promise();
     };
 
-    function getUsCongressShape(input) {        funcName()
+    function getUsCongressShape(input) {        funcName(this)
 
         var deferred = $.Deferred(),
             service = Services.shape_federal_house
@@ -958,7 +958,7 @@
     // end ajax functions
 
     // map functions
-    function clearShapes() {        funcName()
+    function clearShapes() {        funcName(this)
 
         Shapes.forEach(function(a) {
             a.setMap(null);
@@ -970,12 +970,12 @@
         Labels = [];
     }
 
-    function resetBounds() {        funcName()
+    function resetBounds() {        funcName(this)
 
         bounds = new google.maps.LatLngBounds();
     }
 
-    function drawMap(a, b) {        funcName()
+    function drawMap(a, b) {        funcName(this)
 
         // if (!b) {
         //     clearShapes();
@@ -1022,7 +1022,7 @@
         console.log('todo:  drawMap')
     }
 
-    function dropOfficePin(b) {        funcName()
+    function dropOfficePin(b) {        funcName(this)
 
         //for (var a = 2; a < Markers.length; a++) {
         //    markers[a].setMap(null);
@@ -1056,7 +1056,7 @@
         console.log('todo: dropOfficePin')
     }
 
-    function dropPollingPin(c) {        funcName()
+    function dropPollingPin(c) {        funcName(this)
 
         //if (getHash() === "elected-officials") {
         //    for (var b = 1, a; a = markers[b]; b++) {
@@ -1097,7 +1097,7 @@
         console.log('todo: dropPollingPin')
     }
 
-    function reCenterMap() {        funcName()
+    function reCenterMap() {        funcName(this)
 
         // map.setCenter(new google.maps.LatLng(39.95, -75.1642));
         console.log('todo: reCenterMap')
@@ -1158,7 +1158,7 @@
     // end map functions
 
     // ui functions
-    function showInfos() {        funcName()
+    function showInfos() {        funcName(this)
 
         $("#polling-place-intro").hide();
         $("#polling-place-info").show();
@@ -1168,17 +1168,17 @@
         $("#maps-info").show();
     }
 
-    function addressIsProvided(a) {        funcName()
+    function addressIsProvided(a) {        funcName(this)
 
         return a.value && a.value !== $(a).attr("placeholder") && a.value !== "Enter a query";
     }
 
-    function addDistrictToList(a, d, c, b) {        funcName()
+    function addDistrictToList(a, d, c, b) {        funcName(this)
 
         a.append($("<option />").text(d).val(c).prop("disabled", !!b));
     }
 
-    Runonce.populateDistrictSelectList = function(b) {        funcName()
+    Runonce.populateDistrictSelectList = function(b) {        funcName(this)
 
         var a = $("#maps-district-type");
         a.empty();
@@ -1191,7 +1191,7 @@
         Runonce.populateDistrictSelectList = function() {}
     }
 
-    Runonce.bindDistrictSelectEvent = function(b) {        funcName()
+    Runonce.bindDistrictSelectEvent = function(b) {        funcName(this)
 
         var a = $("#maps-district-type");
         a.unbind("change");
@@ -1229,13 +1229,13 @@
         Runonce.bindDistrictSelectEvent = function() {}
     }
 
-    function tabFunc(a) {        funcName()
+    function tabFunc(a) {        funcName(this)
 
         resetBounds();
         return TabFunctions[$("#nav").find("li.active").attr("id")](a);
     }
 
-    function getPolygonCentroid(m) {        funcName()
+    function getPolygonCentroid(m) {        funcName(this)
 
         //var d = 0,
         //    h = 0,
@@ -1259,12 +1259,12 @@
         console.log('todo: getPolygonCentroid')
     }
 
-    function getHash() {        funcName()
+    function getHash() {        funcName(this)
 
         return window.location.hash.substring(1);
     }
 
-    function setMapOptionsForPrint(a) {        funcName()
+    function setMapOptionsForPrint(a) {        funcName(this)
 
         //map.setOptions({
         //    mapTypeControl: !a,
@@ -1274,7 +1274,7 @@
         //});
     }
 
-    function printMapInIE() {        funcName()
+    function printMapInIE() {        funcName(this)
 
         var a = function() {
             setMapOptionsForPrint(true);
@@ -1300,7 +1300,7 @@
         setTimeout(a, 500);
     }
 
-    function printMapInOther() {        funcName()
+    function printMapInOther() {        funcName(this)
 
         setMapOptionsForPrint(true);
         var a = function() {
@@ -1328,7 +1328,7 @@
         setTimeout(a, 500);
     };
 
-    function printMap() {        funcName()
+    function printMap() {        funcName(this)
 
         if (ie && ie[1] < 9) {
             printMapInIE();
@@ -1337,7 +1337,7 @@
         }
     };
 
-    function setDirectionsText(a) {        funcName()
+    function setDirectionsText(a) {        funcName(this)
 
         var b = $("div.directions-text"),
             c = $("<table></table>");
@@ -1356,13 +1356,13 @@
     }
 
     // my utils
-    function grouper(markers) {        funcName()
+    function grouper(markers) {        funcName(this)
 
         var group = new L.featureGroup(markers)
         Lmap.fitBounds(group.getBounds())
     }
 
-    function coordsSwap(coords) {        funcName()
+    function coordsSwap(coords) {        funcName(this)
 
         var tmp = []
         for (var i = 0; i < coords.length - 1; i++) {
@@ -1371,7 +1371,7 @@
         return tmp
     }
 
-    function pad(n, width, z) {        funcName()
+    function pad(n, width, z) {        funcName(this)
 
         n = n + '' // cast to string
         z = z || '0' // default padding: '0'
@@ -1379,28 +1379,28 @@
         return n.length >= width ? n : new Array(width - n.length + 1).join(z) + n
     }
 
-    function s4() {        funcName()
+    function s4() {        funcName(this)
 
         return Math.floor((1 + Math.random()) * 65536).toString(16).substring(1);
     }
 
-    function guid() {        funcName()
+    function guid() {        funcName(this)
 
         return s4() + s4() + "-" + s4() + "-" + s4() + "-" + s4() + "-" + s4() + s4() + s4();
     }
 
-    function precinctIsNotMappable(a) {        funcName()
+    function precinctIsNotMappable(a) {        funcName(this)
 
         return false;
     }
 
-    function invalidAddress() {        funcName()
+    function invalidAddress() {        funcName(this)
 
         precinct = "";
         alert("The address you have chosen is invalid. Please select an address in Philadelphia.");
     }
 
-    function setupMultipleSelects() {        funcName()
+    function setupMultipleSelects() {        funcName(this)
 
         var b = function(c, d) {
             return d.toUpperCase().indexOf(c.toUpperCase()) == 0;
@@ -1416,12 +1416,12 @@
         $("#custom-uscongress-districts").select2(a);
     }
 
-    function clearCustomMap() {        funcName()
+    function clearCustomMap() {        funcName(this)
 
         $(".custom-map-selector").val([]).change();
     }
 
-    function updateCustomMap() {        funcName()
+    function updateCustomMap() {        funcName(this)
 
         clearShapes();
         reCenterMap();
@@ -1474,7 +1474,7 @@
         });
     }
 
-    function getSampleBallot(a, j) {        funcName()
+    function getSampleBallot(a, j) {        funcName(this)
 
         var c = a + "-" + j;
         var l = $("#download-ballot-intro");
@@ -1530,7 +1530,7 @@
         $(el).attr("target", "");
     }
 
-    function getMessageAndText(b) {        funcName()
+    function getMessageAndText(b) {        funcName(this)
 
         var a = {
             "DOWNLOAD BALLOT INTRO TEXT NO BALLOT": Joomla.JText._("DOWNLOAD BALLOT INTRO TEXT NO BALLOT"),
@@ -1548,7 +1548,7 @@
         return a[b];
     }
 
-    function showBallotDropdown() {        funcName()
+    function showBallotDropdown() {        funcName(this)
 
         var b = $("#ballots_dropdown").val();
         if (b != "") {
@@ -1560,7 +1560,7 @@
         }
     }
 
-    function getQueryParams(a) {        funcName()
+    function getQueryParams(a) {        funcName(this)
 
         a = a.split("+").join(" ");
         var d = {},
@@ -1571,7 +1571,7 @@
         return d;
     }
 
-    function tabsReset() {        funcName()
+    function tabsReset() {        funcName(this)
 
         clearShapes();
         $("#nav-elected-officials").removeClass("active");
@@ -1584,7 +1584,7 @@
         $("#download-ballot").hide();
     }
 
-    function showTabElectedOfficials() {        funcName()
+    function showTabElectedOfficials() {        funcName(this)
 
         tabsReset();
         $("#nav-elected-officials").addClass("active");
@@ -1596,7 +1596,7 @@
         addressEntered(2);
     }
 
-    function showTabPollingplace() {        funcName()
+    function showTabPollingplace() {        funcName(this)
 
         tabsReset();
         $("#nav-polling-place").addClass("active");
@@ -1608,7 +1608,7 @@
         addressEntered(2);
     }
 
-    function showTabMaps() {        funcName()
+    function showTabMaps() {        funcName(this)
 
         tabsReset();
         $("#nav-maps").addClass("active");
@@ -1631,7 +1631,7 @@
     }
 
     function showTabBallot() {
-        funcName()
+        funcName(this)
         tabsReset();
         $("#nav-download-ballot").addClass("active");
         $("#download-ballot").show();
@@ -1640,7 +1640,7 @@
     }
 
     function populateSelect2Lists(o, p, r, q) {
-        funcName()
+        funcName(this)
         var s = $(o);
         if (p) {
             console.log('p', p)
@@ -1672,7 +1672,7 @@
     };
 
     function onhashChange() {
-        funcName()
+        funcName(this)
         var hash = getHash();
         switch (hash) {
             case "elected-officials":
@@ -1692,7 +1692,7 @@
 
     /* see above */
     function initialize() {
-        funcName()
+        funcName(this)
         onhashChange();
         /*
         --objects:  shopping list
