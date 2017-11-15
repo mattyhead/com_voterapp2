@@ -252,7 +252,7 @@
             grouper([h.marker, pp.marker, ds.shape])
 
             // save data (late, in case we've had to transform)
-            Indexes = idx
+            Indexes = idx.data
 
             // Markers.push(h)
             Markers.home = h
@@ -771,7 +771,7 @@
         $.getJSON(service.url(input), service.params).done(function(response) {
             if (response.features) {
                 deferred.resolve({
-                    data: response.features[0].data
+                    data: response.features[0]
                 })
             } else {
                 deferred.reject()
