@@ -783,7 +783,7 @@
         $.getJSON(service.url(input), service.params).done(function(response) {
             if (response.features) {
                 deferred.resolve({
-                    data: response.features[0].attributes
+                    data: response.features
                 })
             } else {
                 deferred.reject()
