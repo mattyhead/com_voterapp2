@@ -777,9 +777,9 @@
     }
 
     function getIndexes(input) {
-        console.log('getIndexes(input)', input)
         var deferred = $.Deferred(),
             service = Services.indexer
+        console.log('getIndexes(input)', input, service, service.url(input))
         $.getJSON(service.url(input), service.params).done(function(response) {
             if (response.features) {
                 deferred.resolve({
