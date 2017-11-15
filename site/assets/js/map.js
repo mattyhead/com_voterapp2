@@ -253,15 +253,15 @@
             Indexes = idx.data
 
             // Markers.push(h)
-            Markers.home = h
+            Markers.home = h.marker
 
             // Markers.push(pp)
-            Markers.pollingPlace = pp
+            Markers.pollingPlace = pp.marker
 
             // Shapes.push(ds.shape)
-            Shapes.divisionShape = ds
+            Shapes.divisionShape = ds.shape
 
-            grouper()
+            grouper([h.marker, pp.marker, ds.shape])
 
             // write multi-address UI
 /*            content = '<table width=" 100%" cellspacing="0" cellpadding="3" id="multiple_address_tbl">'
@@ -1352,10 +1352,11 @@
     }
 
     // my utils
-    function grouper() {
-        console.log('grouper')
-        var group = new L.featureGroup(Shapes.concat(Markers)[0])
-        console.log(Shapes, Markers, Shapes.concat(Markers)[0])
+    function grouper(markers) {
+                //var group = new L.featureGroup(Shapes.concat(Markers))
+
+        console.log('grouper', markers, Shapes.concat(Markers))
+        var group = new L.featureGroup(markers)
         Lmap.fitBounds(group.getBounds())
     }
 
