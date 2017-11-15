@@ -1355,7 +1355,7 @@
     function grouper(markers) {
         var testgroup = (Array.prototype.slice.call(Shapes)).concat(Array.prototype.slice.call(Markers))
 
-        console.log('grouper', Shapes, Markers, markers, testgroup)
+        console.log('grouper', Shapes, Markers, markers, Array.prototype.slice.call(Shapes), Array.prototype.slice.call(Markers))
         var group = new L.featureGroup(testgroup)
         Lmap.fitBounds(group.getBounds())
     }
