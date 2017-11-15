@@ -234,7 +234,7 @@
             content = ''
 
         $.when(home, pollingPlace, divisionShape, indexer).then(function(h, pp, ds, idx) {
-            console.log('$.when')
+            console.log('$.when -> h, pp, ds, idx',h, pp, ds, idx)
 
             // draw markers
             h.marker = L.marker(h.coordinates, {
