@@ -264,18 +264,29 @@
             // Shapes.push(ds.shape)
             Shapes.divisionShape = ds
 
-            // write UI
-            content = '<table width=" 100%" cellspacing="0" cellpadding="3" id="multiple_address_tbl">'
+            // write multi-address UI
+/*            content = '<table width=" 100%" cellspacing="0" cellpadding="3" id="multiple_address_tbl">'
             $.each(h.features, function(x, y) {
                 console.log("x,y", x, y)
                 content += '<tr><td><input type="radio" name="address_vals" value="' + y.properties.street_address + '">' + y.properties.street_address + "</td></tr>"
             });
             content += '<tr><td><input type="radio" name="address_vals" value="-1">' + Joomla.JText._("MODALBOX LAST OPTION") + "</td></tr>";
             content += "</table>"
-
-
-
             popupFunctionAddress(content);
+*/
+            console.log(Indexes, "id,ward,division,congressionalDistrict, stateSenateDistrict, stateRepresentativeDistrict, councilDistrict, coordinates")
+            z.id = B.attributes.division_id;
+            z.ward = v;
+            z.division = w;
+            z.congressionalDistrict = B.attributes.congressional_district;
+            z.stateSenateDistrict = B.attributes.state_senate_district;
+            z.stateRepresentativeDistrict = B.attributes.state_representative_district;
+            z.councilDistrict = B.attributes.council_district;
+            z.coordinates = [];
+            B.attributes.coordinates.split(" ").forEach(function(C) {
+                z.coordinates.push(C.split(","));
+            })
+            Runonce.populateDistrictSelectList(Indexes);
         })
     }
 
