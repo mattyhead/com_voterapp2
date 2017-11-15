@@ -278,12 +278,12 @@
         })
     }
 
-    function addressEntered(m) {
+/*    function addressEntered(m) {
         console.log('addressEntered')
 
-        /*        if (!searchBox || !addressIsProvided(document.getElementById("target"))) {
+        if (!searchBox || !addressIsProvided(document.getElementById("target"))) {
                     return false;
-                }*/
+                }
         if (m == "2") {
             byPassGoogle();
             return;
@@ -347,7 +347,7 @@
                     });
                     bounds.extend(e.geometry.location);
                     startMarker = h;
-                    Markers.push(h);*/
+                    Markers.push(h);
 
                     console.log('drop marker', 'bounds?')
                 });
@@ -422,7 +422,7 @@
                 }
             }
         });
-    }
+    }*/
 
     function byPassGoogle() {
         console.log('byPassGoogle')
