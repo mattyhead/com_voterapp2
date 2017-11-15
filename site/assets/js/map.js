@@ -70,7 +70,7 @@
                 $("#sample-pdf").hide();
             },
             "nav-elected-officials": function(a) {
-                getOfficials(a.congressionalDistrict, a.stateSenateDistrict, a.stateRepresentativeDistrict, a.councilDistrict, a.ward, a.division);
+                getOfficials(a.federal_house, a.state_senate, a.state_house, a.city_district, a.ward, a.division);
                 $("#map-canvas").show();
                 $("#sample-pdf").hide();
             },
@@ -273,19 +273,7 @@
             content += "</table>"
             popupFunctionAddress(content);
 */
-            console.log(Indexes, "id,ward,division,congressionalDistrict, stateSenateDistrict, stateRepresentativeDistrict, councilDistrict, coordinates")
-            z.id = B.attributes.division_id;
-            z.ward = v;
-            z.division = w;
-            z.congressionalDistrict = B.attributes.congressional_district;
-            z.stateSenateDistrict = B.attributes.state_senate_district;
-            z.stateRepresentativeDistrict = B.attributes.state_representative_district;
-            z.councilDistrict = B.attributes.council_district;
-            z.coordinates = [];
-            B.attributes.coordinates.split(" ").forEach(function(C) {
-                z.coordinates.push(C.split(","));
-            })
-            Runonce.populateDistrictSelectList(Indexes);
+            Runonce.populateDistrictSelectList();
         })
     }
 
@@ -384,10 +372,10 @@
                                 z.id = B.attributes.division_id;
                                 z.ward = v;
                                 z.division = w;
-                                z.congressionalDistrict = B.attributes.congressional_district;
-                                z.stateSenateDistrict = B.attributes.state_senate_district;
-                                z.stateRepresentativeDistrict = B.attributes.state_representative_district;
-                                z.councilDistrict = B.attributes.council_district;
+                                z.federal_house = B.attributes.congressional_district;
+                                z.state_senate = B.attributes.state_senate_district;
+                                z.state_house = B.attributes.state_representative_district;
+                                z.city_district = B.attributes.council_district;
                                 z.coordinates = [];
                                 B.attributes.coordinates.split(" ").forEach(function(C) {
                                     z.coordinates.push(C.split(","));
@@ -409,19 +397,19 @@
                                 wardData = A;
                                 y("WARD");
                             });
-                            getCouncilShape(z.councilDistrict).done(function(A) {
+                            getCouncilShape(z.city_district).done(function(A) {
                                 councilData = A;
                                 y("COUNCIL");
                             });
-                            getStateRepShape(z.stateRepresentativeDistrict).done(function(A) {
+                            getStateRepShape(z.state_house).done(function(A) {
                                 stateRepData = A;
                                 y("STATE_REP");
                             });
-                            getStateSenateShape(z.stateSenateDistrict).done(function(A) {
+                            getStateSenateShape(z.state_senate).done(function(A) {
                                 stateSenateData = A;
                                 y("STATE_SENATE");
                             });
-                            getUsCongressShape(z.congressionalDistrict).done(function(A) {
+                            getUsCongressShape(z.federal_house).done(function(A) {
                                 usCongressData = A;
                                 y("US_CONGRESS");
                             });
@@ -461,10 +449,10 @@
                     e.id = g.attributes.division_id;
                     e.ward = a;
                     e.division = b;
-                    e.congressionalDistrict = g.attributes.congressional_district;
-                    e.stateSenateDistrict = g.attributes.state_senate_district;
-                    e.stateRepresentativeDistrict = g.attributes.state_representative_district;
-                    e.councilDistrict = g.attributes.council_district;
+                    e.federal_house = g.attributes.congressional_district;
+                    e.state_senate = g.attributes.state_senate_district;
+                    e.state_house = g.attributes.state_representative_district;
+                    e.city_district = g.attributes.council_district;
                     e.coordinates = [];
                     g.attributes.coordinates.split(" ").forEach(function(h) {
                         e.coordinates.push(h.split(","));
@@ -486,19 +474,19 @@
                     wardData = f;
                     d("WARD");
                 });
-                getCouncilShape(e.councilDistrict).done(function(f) {
+                getCouncilShape(e.city_district).done(function(f) {
                     councilData = f;
                     d("COUNCIL");
                 });
-                getStateRepShape(e.stateRepresentativeDistrict).done(function(f) {
+                getStateRepShape(e.state_house).done(function(f) {
                     stateRepData = f;
                     d("STATE_REP");
                 });
-                getStateSenateShape(e.stateSenateDistrict).done(function(f) {
+                getStateSenateShape(e.state_senate).done(function(f) {
                     stateSenateData = f;
                     d("STATE_SENATE");
                 });
-                getUsCongressShape(e.congressionalDistrict).done(function(f) {
+                getUsCongressShape(e.federal_house).done(function(f) {
                     usCongressData = f;
                     d("US_CONGRESS");
                 });
@@ -1185,17 +1173,17 @@
         a.append($("<option />").text(d).val(c).prop("disabled", !!b));
     }
 
-    Runonce.populateDistrictSelectList = function(b) {
-        console.log('Runonce.populateDistrictSelectList', b)
+    Runonce.populateDistrictSelectList = function() {
+        console.log('Runonce.populateDistrictSelectList', Indexes)
 
-        var a = $("#maps-district-type");
-        a.empty();
-        addDistrictToList(a, "Division " + b.ward + b.division, "DIVISION");
-        addDistrictToList(a, "Ward " + b.ward, "WARD", true);
-        addDistrictToList(a, "City Council District " + b.councilDistrict, "COUNCIL", true);
-        addDistrictToList(a, "State Rep District " + b.stateRepresentativeDistrict, "STATE_REP", true);
-        addDistrictToList(a, "State Senate District " + b.stateSenateDistrict, "STATE_SENATE", true);
-        addDistrictToList(a, "US Congress PA-" + b.congressionalDistrict, "US_CONGRESS", true);
+        var $maps_district_type = $("#maps-district-type");
+        $maps_district_type.empty();
+        addDistrictToList($maps_district_type, "Division " + Indexes.ward + Indexes.division, "DIVISION");
+        addDistrictToList($maps_district_type, "Ward " + Indexes.ward, "WARD", true);
+        addDistrictToList($maps_district_type, "City Council District " + Indexes.city_district, "COUNCIL", true);
+        addDistrictToList($maps_district_type, "State Rep District " + Indexes.state_house, "STATE_REP", true);
+        addDistrictToList($maps_district_type, "State Senate District " + Indexes.state_senate, "STATE_SENATE", true);
+        addDistrictToList($maps_district_type, "US Congress PA-" + Indexes.federal_house, "US_CONGRESS", true);
         Runonce.populateDistrictSelectList = function() {}
     }
 
