@@ -248,10 +248,8 @@
             ds.shape = L.geoJSON(ds.geoJSON, ds.style)
             ds.shape.addTo(Lmap)
 
-            // zoom to our rendered elements
-            grouper([h.marker, pp.marker, ds.shape])
-
             // save data (late, in case we've had to transform)
+            idx.coordinates = pp.coordinates
             Indexes = idx.data
 
             // Markers.push(h)
@@ -263,6 +261,8 @@
             // Shapes.push(ds.shape)
             Shapes.divisionShape = ds
 
+            grouper()
+
             // write multi-address UI
 /*            content = '<table width=" 100%" cellspacing="0" cellpadding="3" id="multiple_address_tbl">'
             $.each(h.features, function(x, y) {
@@ -273,6 +273,7 @@
             content += "</table>"
             popupFunctionAddress(content);
 */
+            tabFunc();
             Runonce.populateDistrictSelectList();
         })
     }
@@ -1225,10 +1226,10 @@
         Runonce.bindDistrictSelectEvent = function() {}
     }
 
-    function tabFunc(a) {
-        console.log('Runonce.bindDistrictSelectEvent', b)
+    function tabFunc() {
+        console.log('tabFunc')
         resetBounds();
-        return TabFunctions[$("#nav").find("li.active").attr("id")](a);
+        return TabFunctions[$("#nav").find("li.active").attr("id")](Indexes);
     }
 
     function getPolygonCentroid(m) {
@@ -1351,9 +1352,9 @@
     }
 
     // my utils
-    function grouper(markers) {
+    function grouper() {
         console.log('grouper')
-        var group = new L.featureGroup(markers)
+        var group = new L.featureGroup(Shapes.concat(Markers))
         Lmap.fitBounds(group.getBounds())
     }
 
