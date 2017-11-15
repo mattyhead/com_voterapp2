@@ -27,7 +27,6 @@
         Indexes = [],
         Markers = [],
         Shapes = [],
-        precinct,
         geocoder, bounds, marker, pollingBounds, startMarker, endMarker, target,
         wardData, councilData, stateRepData, stateSenateData, usCongressData,
         officeToId = {
@@ -228,10 +227,10 @@
         console.log('onHomeAddress')
         // independant services
         var
-            indexer = getIndexes(precinct),
+            indexer = getIndexes(Indexes.precinct),
             home = getHome(Addresses.home),
-            pollingPlace = getPolling(precinct),
-            divisionShape = getShapeFromService(precinct, Services.shape_city_division),
+            pollingPlace = getPolling(Indexes.precinct),
+            divisionShape = getShapeFromService(Indexes.precinct, Services.shape_city_division),
             content = ''
 
         $.when(home, pollingPlace, divisionShape, indexer).then(function(h, pp, ds, idx) {
@@ -363,18 +362,18 @@
 
                     console.log('drop marker', 'bounds?')
                 });
-                if (!precinct || t.features.length === 0) {
+                if (!Indexes.precinct || t.features.length === 0) {
                     invalidAddress();
                 } else {
-                    var v = precinct.substring(0, 2);
-                    var w = precinct.substring(2, 4);
+                    var v = Indexes.precinct.substring(0, 2);
+                    var w = Indexes.precinct.substring(2, 4);
                     $.ajax({
                         type: "GET",
                         url: baseUri + "index.php",
                         data: {
                             option: "com_divisions",
                             view: "json",
-                            division_id: precinct
+                            division_id: Indexes.precinct
                         },
                         dataType: "json",
                         async: false,
@@ -399,7 +398,7 @@
                                 $("option[value=" + A + "]").prop("disabled", false);
                             };
                             tabFunc(z);
-                            getDivisionShape(precinct).done(function(A) {
+                            getDivisionShape(Indexes.precinct).done(function(A) {
                                 drawMap([{
                                     name: A.name,
                                     coordinates: A.coordinates
@@ -439,19 +438,19 @@
     function byPassGoogle() {
         console.log('byPassGoogle')
 
-        if (!precinct) {
+        if (!Indexes.precinct) {
             invalidAddress();
             return false;
         }
-        var a = precinct.substring(0, 2);
-        var b = precinct.substring(2, 4);
+        var a = Indexes.precinct.substring(0, 2);
+        var b = Indexes.precinct.substring(2, 4);
         $.ajax({
             type: "GET",
             url: baseUri + "index.php",
             data: {
                 option: "com_divisions",
                 view: "json",
-                division_id: precinct
+                division_id: Indexes.precinct
             },
             dataType: "json",
             async: false,
@@ -476,7 +475,7 @@
                     $("option[value=" + f + "]").prop("disabled", false);
                 };
                 tabFunc(e);
-                getDivisionShape(precinct).done(function(f) {
+                getDivisionShape(Indexes.precinct).done(function(f) {
                     drawMap([{
                         name: f.name,
                         coordinates: f.coordinates
@@ -547,7 +546,7 @@
         });
         Addresses.polling_place = i + "," + e;
         if ($("#nav-polling-place").hasClass("active")) {
-            dropPollingPin(Addresses.polling_place, precinct);
+            dropPollingPin(Addresses.polling_place, Indexes.precinct);
         } else {
             if (Addresses.mayor) {
                 dropOfficePin(Addresses.mayor);
@@ -559,7 +558,7 @@
         c = ParkingCodes[l];
 
         var g = '<div id="polling-place-info"><h3 class="polling-place-info-header">' + Joomla.JText._("YOUR POLLING PLACE") + '</h3><div id="polling-place-info-container"><br><div id="polling-info-card"><strong>' + Joomla.JText._("WARD") + " " + a + " " + Joomla.JText._("DIVISION") + " " + j + "</strong><br><hr><strong>" + Joomla.JText._("P_LOCATION") + " </strong><br/>" + h + "<br/><br/><strong>" + Joomla.JText._("P_ADDRESS") + " </strong><br/>" + f + "<br/>Philadelphia, PA " + e + "<br/><br/><strong>" + Joomla.JText._("P_ACCESSIBILITY") + '</strong><br/><span id="polling-building">' + k + "</span><br/><br/><strong>" + Joomla.JText._("P_PARKING") + '</strong><br/><span id="polling-parking">' + c + '</span><br/></div><br /></div><h3 class="polling-place-directions-header">' + Joomla.JText._("DIRECTIONS") + '</h3><div id="polling-place-directions-container"><br><span id="walking-directions" class="directions">' + Joomla.JText._("WALKING") + '</span> | <span id="bicycling-directions" class="directions">' + Joomla.JText._("BICYCLING") + '</span> | <span id="driving-directions" class="directions">' + Joomla.JText._("DRIVING") + '</span><br /><div class="directions-text"></div></div></div>';
-        if (precinctIsNotMappable(precinct)) {
+        if (precinctIsNotMappable(Indexes.precinct)) {
             g = '<div id ="polling-header"><h3>' + Joomla.JText._("YOUR POLLING PLACE") + '</h3></div><div><br><div id="polling-info-card-disclaimer"><br><p>' + Joomla.JText._("DISCLAIMER") + "</p></div>";
         }
         pollingPlaceMain.empty();
@@ -767,7 +766,7 @@
             select: function(evt, ui) {
                 console.log('addresscomplete autocomplete.select (evt, ui)', evt, ui)
                 Addresses.home = ui.item.label
-                precinct = ui.item.precinct
+                Indexes.precinct = ui.item.precinct
 
                 showInfos()
 
@@ -1401,7 +1400,7 @@
 
     function invalidAddress() {
         console.log('invalidAddress')
-        precinct = "";
+        Indexes.precinct = "";
         alert("The address you have chosen is invalid. Please select an address in Philadelphia.");
     }
 
@@ -1801,7 +1800,7 @@
         printMap();
     });
     $(document).on("click", "#nav-polling-place", function() {
-        showTabPollingplace(precinct);
+        showTabPollingplace(Indexes.precinct);
     });
     $(document).on("click", "#nav-elected-officials", function() {
         showTabElectedOfficials();
