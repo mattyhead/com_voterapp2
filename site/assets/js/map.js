@@ -5,11 +5,12 @@
 
     // true init
     $(function() {
-        setupMultipleSelects();
-        $(".office-level-accordion > dd").hide();
-        $(".office-accordion > dd").hide();
-        initialize();
-    });
+        setRunonce()
+        setupMultipleSelects()
+        $(".office-level-accordion > dd").hide()
+        $(".office-accordion > dd").hide()
+        initialize()
+    })
 
     var ie = /msie ([0-9]+)\.[0-9]+/.exec(navigator.userAgent.toLowerCase()),
         directionsService = new google.maps.DirectionsService(),
@@ -428,7 +429,7 @@
         console.log('byPassGoogle')
 
         if (!Indexes.precinct) {
-            invalidAddress();
+            invalidAddress()
             return false;
         }
         var a = Indexes.precinct.substring(0, 2);
@@ -1174,56 +1175,60 @@
         a.append($("<option />").text(d).val(c).prop("disabled", !!b));
     }
 
-    Runonce.populateDistrictSelectList = function() {
-        console.log('Runonce.populateDistrictSelectList', Indexes)
+    function setRunonce() {
 
-        var $maps_district_type = $("#maps-district-type");
-        $maps_district_type.empty();
-        addDistrictToList($maps_district_type, "Division " + Indexes.ward + Indexes.division, "DIVISION");
-        addDistrictToList($maps_district_type, "Ward " + Indexes.ward, "WARD", true);
-        addDistrictToList($maps_district_type, "City Council District " + Indexes.city_district, "COUNCIL", true);
-        addDistrictToList($maps_district_type, "State Rep District " + Indexes.state_house, "STATE_REP", true);
-        addDistrictToList($maps_district_type, "State Senate District " + Indexes.state_senate, "STATE_SENATE", true);
-        addDistrictToList($maps_district_type, "US Congress PA-" + Indexes.federal_house, "US_CONGRESS", true);
-        Runonce.populateDistrictSelectList = function() {}
-    }
+        Runonce.populateDistrictSelectList = function() {
+            console.log('Runonce.populateDistrictSelectList', Indexes)
 
-    Runonce.bindDistrictSelectEvent = function(b) {
-        console.log('Runonce.bindDistrictSelectEvent', b)
-        var a = $("#maps-district-type");
-        a.unbind("change");
-        a.change(function() {
-            resetBounds();
-            switch (a.val()) {
-                case "DIVISION":
-                    drawMap([b]);
-                    break;
+            var $maps_district_type = $("#maps-district-type");
+            $maps_district_type.empty();
+            addDistrictToList($maps_district_type, "Division " + Indexes.ward + Indexes.division, "DIVISION");
+            addDistrictToList($maps_district_type, "Ward " + Indexes.ward, "WARD", true);
+            addDistrictToList($maps_district_type, "City Council District " + Indexes.city_district, "COUNCIL", true);
+            addDistrictToList($maps_district_type, "State Rep District " + Indexes.state_house, "STATE_REP", true);
+            addDistrictToList($maps_district_type, "State Senate District " + Indexes.state_senate, "STATE_SENATE", true);
+            addDistrictToList($maps_district_type, "US Congress PA-" + Indexes.federal_house, "US_CONGRESS", true);
+            Runonce.populateDistrictSelectList = function() {}
+        }
 
-                case "WARD":
-                    drawMap([wardData]);
-                    break;
+        Runonce.bindDistrictSelectEvent = function(b) {
+            console.log('Runonce.bindDistrictSelectEvent', b)
+            var a = $("#maps-district-type");
+            a.unbind("change");
+            a.change(function() {
+                resetBounds();
+                switch (a.val()) {
+                    case "DIVISION":
+                        drawMap([b]);
+                        break;
 
-                case "COUNCIL":
-                    drawMap([councilData]);
-                    break;
+                    case "WARD":
+                        drawMap([wardData]);
+                        break;
 
-                case "STATE_REP":
-                    drawMap([stateRepData]);
-                    break;
+                    case "COUNCIL":
+                        drawMap([councilData]);
+                        break;
 
-                case "STATE_SENATE":
-                    drawMap([stateSenateData]);
-                    break;
+                    case "STATE_REP":
+                        drawMap([stateRepData]);
+                        break;
 
-                case "US_CONGRESS":
-                    drawMap([usCongressData]);
-                    break;
+                    case "STATE_SENATE":
+                        drawMap([stateSenateData]);
+                        break;
 
-                default:
-                    break;
-            }
-        });
-        Runonce.bindDistrictSelectEvent = function() {}
+                    case "US_CONGRESS":
+                        drawMap([usCongressData]);
+                        break;
+
+                    default:
+                        break;
+                }
+            });
+            Runonce.bindDistrictSelectEvent = function() {}
+        }
+
     }
 
     function tabFunc() {
