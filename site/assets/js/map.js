@@ -5,7 +5,6 @@
 
     // true init
     $(function() {
-        setRunonce()
         setupMultipleSelects()
         $(".office-level-accordion > dd").hide()
         $(".office-accordion > dd").hide()
@@ -233,6 +232,10 @@
             pollingPlace = getPolling(Indexes.precinct),
             divisionShape = getShapeFromService(Indexes.precinct, Services.shape_city_division),
             content = ''
+
+        // any time we do a new address, we repopoulate the Runonce functions -- for now
+        setRunonce()
+
 
         $.when(home, pollingPlace, divisionShape, indexer).then(function(h, pp, ds, idx) {
             console.log('$.when -> h, pp, ds, idx',h, pp, ds, idx)
