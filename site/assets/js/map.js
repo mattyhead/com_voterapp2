@@ -225,11 +225,11 @@
             pollingPlace = getPolling(Indexes.precinct),
             divisionShape = getShapeFromService(Indexes.precinct, Services.shape_city_division),
             content = '',
-             wardShape = getShapeFromService,
-                councilShape = getShapeFromService,
-                stateSenateShape = getShapeFromService,
-                stateHouseShape = getShapeFromService,
-                federalHouseShape = getShapeFromService
+            wardShape = getShapeFromService,
+            councilShape = getShapeFromService,
+            stateSenateShape = getShapeFromService,
+            stateHouseShape = getShapeFromService,
+            federalHouseShape = getShapeFromService
 
 
         // any time we do a new address, we repopoulate the Runonce functions -- for now
@@ -275,23 +275,28 @@
 
             tabFunc();
 
-            wardshape(Indexes.city_ward, Services.shape_city_ward).done(function(data) {
+            wardShape(Indexes.city_ward, Services.shape_city_ward).done(function(data) {
+                console.log(data)
                 ShapeData.ward = data
                 enableOption("WARD")
             })
             councilShape(Indexes.city_district, Services.shape_city_district).done(function(data) {
+                console.log(data)
                 ShapeData.ward = data
                 enableOption("COUNCIL")
             })
             stateSenateShape(Indexes.state_senate, Services.shape_state_senate).done(function(data) {
+                console.log(data)
                 ShapeData.ward = data
                 enableOption("STATE_REP")
             })
             stateHouseShape(Indexes.state_house, Services.shape_state_house).done(function(data) {
+                console.log(data)
                 ShapeData.ward = data
                 enableOption("STATE_SENATE")
             })
             federalHouseShape(Indexes.federal_house, Services.shape_federal_house).done(function(data) {
+                console.log(data)
                 ShapeData.ward = data
                 enableOption("US_CONGRESS")
             })
