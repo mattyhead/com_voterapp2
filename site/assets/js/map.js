@@ -223,18 +223,15 @@
             indexer = getIndexes(Indexes.precinct),
             home = getHome(Addresses.home),
             pollingPlace = getPolling(Indexes.precinct),
-            divisionShape = getShapeFromService(Indexes.precinct, Services.shape_city_division),
-            content = '',
-            wardShape = getShapeFromService,
-            councilShape = getShapeFromService,
-            stateSenateShape = getShapeFromService,
-            stateHouseShape = getShapeFromService,
-            federalHouseShape = getShapeFromService
+            divisionShape, wardShape, councilShape, stateSenateShape, stateHouseShape, federalHouseShape, content = ''
 
 
         // any time we do a new address, we repopoulate the Runonce functions -- for now
         setRunonce()
 
+        divisionShape = wardShape = councilShape = stateSenateShape = stateHouseShape = federalHouseShape = getShapeFromService
+
+        divisionShape(Indexes.precinct, Services.shape_city_division)
 
         $.when(home, pollingPlace, divisionShape, indexer).then(function(h, pp, ds, idx) {
             console.log('$.when -> h, pp, ds, idx', h, pp, ds, idx)
