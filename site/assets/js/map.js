@@ -26,8 +26,8 @@
         Labels = [],
         Indexes = [],
         Markers = [],
-        Shapes = [],
-        ShapeData = [],
+        Shapes = [], // p#### w## c## s## h### f##
+        ShapeData = [], // p#### w## c## s## h### f##
         geocoder, bounds, marker, pollingBounds, startMarker, endMarker, target,
         wardData, councilData, stateRepData, stateSenateData, usCongressData,
         officeToId = {
@@ -228,7 +228,15 @@
 
         // any time we do a new address, we repopoulate the Runonce functions -- for now
         setRunonce()
-
+        Runonce = []
+        Labels = []
+        Indexes = []
+        // eat home and pp markers
+        Markers = []
+        // eat any rendered shaped 
+        Shapes = []
+        // eat any rendered shaped 
+        ShapeData = []
         divisionShape = wardShape = councilShape = stateSenateShape = stateHouseShape = federalHouseShape = getShapeFromService
 
         divisionShape(Indexes.precinct, Services.shape_city_division)
@@ -246,8 +254,8 @@
                 icon: Icons.polling
             }).addTo(Lmap)
 
-            Shapes.divisionShape = L.geoJSON(ds.geoJSON, ds.style)
-            Shapes.divisionShape.addTo(Lmap)
+            Shapes['p'+precinct] = L.geoJSON(ds.geoJSON, ds.style)
+            Shapes['p'+precinct].addTo(Lmap)
 
             // preserve coordinate data
             idx.coordinates = pp.coordinates
@@ -1666,7 +1674,6 @@
         console.log('populateSelect2Lists', o, p, r, q)
         var s = $(o);
         if (p) {
-            console.log('p', p)
             if ("#custom-divisions" !== o) {
                 s.append($("<option>").text("ALL"));
             }
