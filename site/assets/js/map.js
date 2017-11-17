@@ -254,8 +254,8 @@
                 icon: Icons.polling
             }).addTo(Lmap)
 
-            Shapes['p'+precinct] = L.geoJSON(ds.geoJSON, ds.style)
-            Shapes['p'+precinct].addTo(Lmap)
+            Shapes['p'+Indexes.precinct] = L.geoJSON(ds.geoJSON, ds.style)
+            Shapes['p'+Indexes.precinct].addTo(Lmap)
 
             // preserve coordinate data
             idx.coordinates = pp.coordinates
