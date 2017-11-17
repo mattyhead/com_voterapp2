@@ -1624,7 +1624,7 @@
             display: "inline",
             position: "absolute"
         });
-        addressEntered(2);
+        byPassGoogle();
     }
 
     function showTabPollingplace() {
@@ -1636,7 +1636,7 @@
             display: "inline",
             position: "absolute"
         });
-        addressEntered(2);
+        byPassGoogle();
     }
 
     function showTabMaps() {
@@ -1658,7 +1658,7 @@
         }
         console.log('--------------Divisions -------------------', 'you wanted to see this', Divisions)
         Runonce.populateSelect2Lists = false
-        addressEntered(2);
+        byPassGoogle();
     }
 
     function showTabBallot() {
@@ -1667,7 +1667,7 @@
         $("#nav-download-ballot").addClass("active");
         $("#download-ballot").show();
         $("#print-map").hide();
-        addressEntered(2);
+        byPassGoogle();
     }
 
     function populateSelect2Lists(o, p, r, q) {
