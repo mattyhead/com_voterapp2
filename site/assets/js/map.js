@@ -456,7 +456,7 @@
 
     function byPassGoogle() {
         console.log('byPassGoogle')
-
+/*
         if (!Indexes.precinct) {
             invalidAddress()
             return false;
@@ -525,7 +525,7 @@
             error: function(c, e, d) {
                 alert(e + " " + d);
             }
-        });
+        });*/
     }
 
     function getPollingPlace(a, j) {
