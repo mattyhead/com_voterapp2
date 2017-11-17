@@ -228,6 +228,7 @@
 
         // any time we do a new address, we repopoulate the Runonce functions -- for now
         setRunonce()
+        console.log(Runonce)
         Runonce = []
         Labels = []
         Indexes = []
@@ -1209,6 +1210,7 @@
     }
 
     function setRunonce() {
+        console.log('setRunonce');
 
         Runonce.populateDistrictSelectList = function() {
             console.log('Runonce.populateDistrictSelectList', Indexes)
