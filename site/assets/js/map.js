@@ -949,7 +949,7 @@
     }
 
     function dropHomePin() {
-        console.log('dropHomePin')
+        console.log('dropHomePin', Indexes)
 
         Markers.home = L.marker(Indexes.coordinates.home, {
             icon: Icons.home,
