@@ -245,24 +245,21 @@
         $.when(home, pollingPlace, divisionShape, indexer).then(function(h, pp, ds, idx) {
             console.log('$.when -> h, pp, ds, idx', h, pp, ds, idx)
 
+            // preserve coordinate data
+            idx.data.coordinates.home = h.coordinates
+            idx.data.coordinates.polling = pp.coordinates
+
+            // store Indexes for this address
+            Indexes = idx.data
+
             // draw markers
-            Markers.home = L.marker(h.coordinates, {
-                icon: Icons.home,
-            }).addTo(Lmap)
-
-
-            Markers.pollingPlace = L.marker(pp.coordinates, {
-                icon: Icons.polling
-            }).addTo(Lmap)
+            dropHomePin()
+            dropPollingPin()
 
             Shapes['p'+Indexes.precinct] = L.geoJSON(ds.geoJSON, ds.style)
             Shapes['p'+Indexes.precinct].addTo(Lmap)
 
-            // preserve coordinate data
-            idx.coordinates = pp.coordinates
 
-            // store Indexes for this address
-            Indexes = idx.data
 
             grouper()
 
@@ -308,152 +305,6 @@
             })
         })
     }
-
-    /*    function addressEntered(m) {
-            console.log('addressEntered')
-
-            if (!searchBox || !addressIsProvided(document.getElementById("target"))) {
-                        return false;
-                    }
-            if (m == "2") {
-                byPassGoogle();
-                return;
-            }
-            var e, g, c, h, b, n = [],
-                r, l;
-            clearCustomMap();
-            if (directionsRenderer) {
-                directionsRenderer.setMap(null);
-            }
-            for (g = 0; g < Markers.length; g++) {
-                // markers[g].setMap(null)
-                console.log('todo: unset markers in Leaflet')
-            }
-            // f
-            var j = {},
-                q = Addresses.home,
-                service = Services.geocoder;
-            c = baseUri + "components/com_voterapp2/assets/images/home.png";
-            //b = String(e.geometry.location).replace(/ /g, "");
-            //n = b.split(",");
-            //r = n[1] + "%2C" + n[0];
-            //l = r.replace(/[()]/g, "");
-            $.getJSON(service.url(q), service.params).done(function(t) {
-                console.log("t:", t)
-                var u = 0;
-                var i = '<table width=" 100%" cellspacing="0" cellpadding="3" id="multiple_address_tbl">';
-                var s = '<table width=" 100%" cellspacing="0" cellpadding="3" id="multiple_address_tbl">';
-                $.each(h.features, function(x, y) {
-                    console.log("x,y", x, y)
-                    i += '<tr><td><input type="radio" name="address_vals" value="' + y.properties.street_address + '">' + y.properties.street_address + "</td></tr>";
-                    if (y.match_type = "exact") {
-                        u = u + 1;
-                        s += '<tr><td><input type="radio" name="address_vals" value="' + y.properties.street_address + '">' + y.properties.street_address + "</td></tr>";
-                    }
-                });
-                i += '<tr><td><input type="radio" name="address_vals" value="-1">' + Joomla.JText._("MODALBOX LAST OPTION") + "</td></tr>";
-                i += "</table>";
-                s += '<tr><td><input type="radio" name="address_vals" value="-1">' + Joomla.JText._("MODALBOX LAST OPTION") + "</td></tr>";
-                s += "</table>";
-                console.log(i)
-                var k = 0;
-                if (u == 0 || u > 1) {
-                    if (u > 1) {
-                        popupFunctionAddress(t, c, e, s);
-                    } else {
-                        popupFunctionAddress(t, c, e, i);
-                    }
-                } else {
-                    $.each(t.features, function(x, y) {
-                        console.log('x,y', x, y)
-
-                        /*e.geometry.location.A = y.geometry.coordinates[0];
-                        e.geometry.location.F = y.geometry.coordinates[1];
-                        bounds = new google.maps.LatLngBounds();
-                        h = new google.maps.Marker({
-                            map: map,
-                            icon: c,
-                            title: e.name,
-                            position: e.geometry.location
-                        });
-                        bounds.extend(e.geometry.location);
-                        startMarker = h;
-                        Markers.push(h);
-
-                        console.log('drop marker', 'bounds?')
-                    });
-                    if (!Indexes.precinct || t.features.length === 0) {
-                        invalidAddress();
-                    } else {
-                        var v = Indexes.precinct.substring(0, 2);
-                        var w = Indexes.precinct.substring(2, 4);
-                        $.ajax({
-                            type: "GET",
-                            url: baseUri + "index.php",
-                            data: {
-                                option: "com_divisions",
-                                view: "json",
-                                division_id: Indexes.precinct
-                            },
-                            dataType: "json",
-                            async: false,
-                            success: function(x) {
-                                var z = {},
-                                    y;
-                                $.each(x.features, function(A, B) {
-                                    z.id = B.attributes.division_id;
-                                    z.ward = v;
-                                    z.division = w;
-                                    z.federal_house = B.attributes.congressional_district;
-                                    z.state_senate = B.attributes.state_senate_district;
-                                    z.state_house = B.attributes.state_representative_district;
-                                    z.city_district = B.attributes.council_district;
-                                    z.coordinates = [];
-                                    B.attributes.coordinates.split(" ").forEach(function(C) {
-                                        z.coordinates.push(C.split(","));
-                                    });
-                                });
-                                Runonce.populateDistrictSelectList(z);
-                                y = function(A) {
-                                    $("option[value=" + A + "]").prop("disabled", false);
-                                };
-                                tabFunc(z);
-                                getDivisionShape(Indexes.precinct).done(function(A) {
-                                    drawMap([{
-                                        name: A.name,
-                                        coordinates: A.coordinates
-                                    }]);
-                                    y("DIVISION");
-                                });
-                                getWardShape(v).done(function(A) {
-                                    wardData = A;
-                                    y("WARD");
-                                });
-                                getCouncilShape(z.city_district).done(function(A) {
-                                    councilData = A;
-                                    y("COUNCIL");
-                                });
-                                getStateRepShape(z.state_house).done(function(A) {
-                                    stateRepData = A;
-                                    y("STATE_REP");
-                                });
-                                getStateSenateShape(z.state_senate).done(function(A) {
-                                    stateSenateData = A;
-                                    y("STATE_SENATE");
-                                });
-                                getUsCongressShape(z.federal_house).done(function(A) {
-                                    usCongressData = A;
-                                    y("US_CONGRESS");
-                                });
-                            },
-                            error: function(x, z, y) {
-                                alert(z + " " + y);
-                            }
-                        });
-                    }
-                }
-            });
-        }*/
 
     function byPassGoogle() {
         console.log('byPassGoogle')
@@ -1089,44 +940,20 @@
         console.log('todo: dropOfficePin')
     }
 
-    function dropPollingPin(c) {
-        console.log('dropPollingPin', c)
-        //if (getHash() === "elected-officials") {
-        //    for (var b = 1, a; a = markers[b]; b++) {
-        //        a.setMap(null);
-        //    }
-        //}
-        //bounds = new google.maps.LatLngBounds();
-        //geocoder.geocode({
-        //    address: c
-        //}, function(f, e) {
-        //    if (e === google.maps.GeocoderStatus.OK) {
-        //        bounds.extend(f[0].geometry.location);
-        //        map.fitBounds(bounds);
-        //        pollingBounds = bounds;
-        //        var g = google.maps.event.addListener(map, "idle", function() {
-        //            if (map.getZoom() > 16) {
-        //                map.setZoom(16);
-        //            }
-        //            google.maps.event.removeListener(g);
-        //        });
-        //        var h = baseUri + "components/com_voterapp2/assets/images/polling.png";
-        //        var d = new google.maps.Marker({
-        //            map: map,
-        //            icon: h,
-        //            animation: google.maps.Animation.DROP,
-        //            position: f[0].geometry.location,
-        //            title: ""
-        //        });
-        //        if (precinctIsNotMappable(precinct)) {
-        //            d.setVisible(false);
-        //        }
-        //        endMarker = d;
-        //        Markers.push(d);
-        //    } else {
-        //        alert("Geocode of polling place was not successful for the following reason: " + e);
-        //    }
-        //});
+    function dropPollingPin() {
+        console.log('dropPollingPin')
+
+        Markers.pollingPlace = L.marker(Indexes.coordinates.polling, {
+            icon: Icons.polling
+        }).addTo(Lmap)
+    }
+
+    function dropHomePin() {
+        console.log('dropHomePin')
+
+        Markers.home = L.marker(Indexes.coordinates.home, {
+            icon: Icons.home,
+        }).addTo(Lmap)
     }
 
     function reCenterMap() {
