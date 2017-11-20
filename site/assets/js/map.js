@@ -1221,7 +1221,7 @@
 
     // my utils
     function grouper() {
-        console.log('grouper')
+        console.log('grouper', Markers, Shapes)
         var group = new L.featureGroup([].concat(...[Shapes, Markers].map(Object.values)))
         Lmap.fitBounds(group.getBounds())
     }
