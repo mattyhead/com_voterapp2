@@ -255,10 +255,6 @@
             dropHomePin()
             dropPollingPin()
 
-            var shape = L.geoJSON(ds.geoJSON, ds.style).addTo(Lmap)
-
-            Shapes.division = shape
-
             grouper()
 
             // write multi-address UI
