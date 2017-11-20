@@ -273,8 +273,7 @@
             tabFunc();
 
             divisionShape(Indexes.precinct, Services.shape_city_division).done(function(data) {
-                console.log(data)
-                ShapeData.ward = data
+                ShapeData.division = data
 
                 Shapes.division = L.geoJSON(data.geoJSON, data.style)
                 Shapes.division.addTo(Lmap)
@@ -282,53 +281,28 @@
             })
 
             wardShape(Indexes.city_ward, Services.shape_city_ward).done(function(data) {
-                console.log(data)
                 ShapeData.ward = data
                 enableOption("WARD")
-
-                Shapes.ward = L.geoJSON(data.geoJSON, data.style)
-                Shapes.ward.addTo(Lmap)
-                grouper()
             })
 
             councilShape(Indexes.city_district, Services.shape_city_district).done(function(data) {
-                console.log(data)
                 ShapeData.council = data
                 enableOption("COUNCIL")
-
-                Shapes.council = L.geoJSON(data.geoJSON, data.style)
-                Shapes.council.addTo(Lmap)
-                grouper()
             })
 
             stateSenateShape(Indexes.state_senate, Services.shape_state_senate).done(function(data) {
-                console.log(data)
                 ShapeData.senate = data
                 enableOption("STATE_REP")
-
-                Shapes.senate = L.geoJSON(data.geoJSON, data.style)
-                Shapes.senate.addTo(Lmap)
-                grouper()
             })
 
             stateHouseShape(Indexes.state_house, Services.shape_state_house).done(function(data) {
-                console.log(data)
                 ShapeData.house = data
                 enableOption("STATE_SENATE")
-
-                Shapes.house = L.geoJSON(data.geoJSON, data.style)
-                Shapes.house.addTo(Lmap)
-                grouper()
             })
 
             federalHouseShape(Indexes.federal_house, Services.shape_federal_house).done(function(data) {
-                console.log(data)
                 ShapeData.congress = data
                 enableOption("US_CONGRESS")
-
-                Shapes.congress = L.geoJSON(data.geoJSON, data.style)
-                Shapes.congress.addTo(Lmap)
-                grouper()
             })
         })
     }
