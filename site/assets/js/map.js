@@ -256,8 +256,7 @@
             dropHomePin()
             dropPollingPin()
 
-            Shapes['p'+Indexes.precinct] = L.geoJSON(ds.geoJSON, ds.style)
-            Shapes['p'+Indexes.precinct].addTo(Lmap)
+            Shapes['p'+Indexes.precinct] = L.geoJSON(ds.geoJSON, ds.style).addTo(Lmap)
 
 
 
