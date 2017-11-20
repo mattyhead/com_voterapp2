@@ -257,27 +257,12 @@
 
             grouper()
 
-            // write multi-address UI
-            /*            content = '<table width=" 100%" cellspacing="0" cellpadding="3" id="multiple_address_tbl">'
-                        $.each(h.features, function(x, y) {
-                            console.log("x,y", x, y)
-                            content += '<tr><td><input type="radio" name="address_vals" value="' + y.properties.street_address + '">' + y.properties.street_address + "</td></tr>"
-                        });
-                        content += '<tr><td><input type="radio" name="address_vals" value="-1">' + Joomla.JText._("MODALBOX LAST OPTION") + "</td></tr>";
-                        content += "</table>"
-                        popupFunctionAddress(content);
-            */
-
             Runonce.populateDistrictSelectList();
 
             tabFunc();
 
             divisionShape(Indexes.precinct, Services.shape_city_division).done(function(data) {
                 ShapeData.division = data
-
-                /*                Shapes.division = L.geoJSON(data.geoJSON, data.style)
-                                Shapes.division.addTo(Lmap)
-                */
                 drawMap(ShapeData.division, 'division')
                 grouper()
             })
@@ -607,7 +592,7 @@
         });
     }
 
-    // functions
+    // ajax functions
     function addressComplete() {
         console.log('addressComplete')
 
@@ -638,13 +623,11 @@
                 }
             },
             select: function(evt, ui) {
-                console.log('addresscomplete autocomplete.select (evt, ui)', evt, ui)
                 Addresses.home = ui.item.label
                 Indexes.precinct = ui.item.precinct
 
                 showInfos()
 
-                //addressEntered(1)
                 onHomeAddress()
             }
         })
@@ -733,112 +716,6 @@
         return deferred.promise()
     }
 
-    function getDivisionShape(input) {
-        console.log('getDivisionShape(input)', input)
-        var deferred = $.Deferred(),
-            service = Services.shape_city_division
-        $.getJSON(service.url(input), service.params).done(function(c) {
-            if (c.features) {
-                deferred.resolve({
-                    coordinates: c.features[0].geometry.coordinates[0],
-                    color: "#FF0000",
-                    name: input
-                });
-            } else {
-                deferred.reject();
-            }
-        });
-        return deferred.promise();
-    }
-
-    function getWardShape(input) {
-        console.log('getWardShape', input)
-        var deferred = $.Deferred(),
-            service = Services.shape_city_ward
-        $.getJSON(service.url(input), service.params).done(function(c) {
-            if (c.features) {
-                deferred.resolve({
-                    coordinates: c.features[0].geometry.coordinates[0],
-                    color: "#0000FF",
-                    name: input
-                });
-            } else {
-                deferred.reject();
-            }
-        });
-        return deferred.promise();
-    };
-
-    function getCouncilShape(input) {
-        var deferred = $.Deferred(),
-            service = Services.shape_city_district
-        $.getJSON(service.url(input), service.params).done(function(c) {
-            if (c.features) {
-                deferred.resolve({
-                    coordinates: c.features[0].geometry.coordinates[0],
-                    color: "#0D912E",
-                    name: input
-                });
-            } else {
-                deferred.reject();
-            }
-        });
-        return deferred.promise();
-    };
-
-    function getStateRepShape(input) {
-        console.log('getStateRepShape', input)
-        var deferred = $.Deferred(),
-            service = Services.shape_state_house
-        $.getJSON(service.url(input), service.params).done(function(c) {
-            if (c.features) {
-                deferred.resolve({
-                    coordinates: c.features[0].geometry.coordinates[0],
-                    color: "#751675",
-                    name: input
-                });
-            } else {
-                deferred.reject();
-            }
-        });
-        return deferred.promise();
-    };
-
-    function getStateSenateShape(input) {
-        console.log('getStateSenateShape', input)
-        var deferred = $.Deferred(),
-            service = Services.shape_state_senate
-        $.getJSON(service.url(input), service.params).done(function(c) {
-            if (c.features) {
-                deferred.resolve({
-                    coordinates: c.features[0].geometry.coordinates[0],
-                    color: "#875010",
-                    name: input
-                });
-            } else {
-                deferred.reject();
-            }
-        });
-        return deferred.promise();
-    };
-
-    function getUsCongressShape(input) {
-        console.log('getUsCongressShape', input)
-        var deferred = $.Deferred(),
-            service = Services.shape_federal_house
-        $.getJSON(service.url(input), service.params).done(function(c) {
-            if (c.features) {
-                deferred.resolve({
-                    coordinates: c.features[0].geometry.coordinates[0],
-                    color: "#0C727D",
-                    name: parseInt(input).toString()
-                });
-            } else {
-                deferred.reject();
-            }
-        });
-        return deferred.promise();
-    };
     // end ajax functions
 
     function enableOption(A) {
