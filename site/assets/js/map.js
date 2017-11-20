@@ -292,6 +292,7 @@
 
                 Shapes.ward = L.geoJSON(data.geoJSON, data.style)
                 Shapes.ward.addTo(Lmap)
+                grouper()
             })
 
             councilShape(Indexes.city_district, Services.shape_city_district).done(function(data) {
@@ -301,6 +302,7 @@
 
                 Shapes.council = L.geoJSON(data.geoJSON, data.style)
                 Shapes.council.addTo(Lmap)
+                grouper()
             })
 
             stateSenateShape(Indexes.state_senate, Services.shape_state_senate).done(function(data) {
@@ -310,6 +312,7 @@
 
                 Shapes.senate = L.geoJSON(data.geoJSON, data.style)
                 Shapes.senate.addTo(Lmap)
+                grouper()
             })
 
             stateHouseShape(Indexes.state_house, Services.shape_state_house).done(function(data) {
@@ -319,6 +322,7 @@
 
                 Shapes.house = L.geoJSON(data.geoJSON, data.style)
                 Shapes.house.addTo(Lmap)
+                grouper()
             })
 
             federalHouseShape(Indexes.federal_house, Services.shape_federal_house).done(function(data) {
@@ -328,6 +332,7 @@
 
                 Shapes.congress = L.geoJSON(data.geoJSON, data.style)
                 Shapes.contress.addTo(Lmap)
+                grouper()
             })
         })
     }
