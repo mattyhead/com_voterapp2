@@ -275,8 +275,10 @@
             divisionShape(Indexes.precinct, Services.shape_city_division).done(function(data) {
                 ShapeData.division = data
 
-                Shapes.division = L.geoJSON(data.geoJSON, data.style)
-                Shapes.division.addTo(Lmap)
+                /*                Shapes.division = L.geoJSON(data.geoJSON, data.style)
+                                Shapes.division.addTo(Lmap)
+                */
+                drawMap(ShapeData.division, 'division')
                 grouper()
             })
 
@@ -861,8 +863,12 @@
         bounds = new google.maps.LatLngBounds();
     }
 
-    function drawMap(a, b) {
+    function drawMap(shapeData, label) {
         console.log('drawMap')
+
+        Shapes[label] = L.geoJSON(shapeData.geoJSON, shapeData.style)
+        Shapes[label].addTo(Lmap)
+        grouper()
             // if (!b) {
             //     clearShapes();
             // }
@@ -1222,7 +1228,7 @@
     // my utils
     function grouper() {
         console.log('grouper', Markers, Shapes)
-        var group = new L.featureGroup([].concat(...[ShapeData, Markers].map(Object.values)))
+        var group = new L.featureGroup([].concat(...[Shapes, Markers].map(Object.values)))
         Lmap.fitBounds(group.getBounds())
     }
 
