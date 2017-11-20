@@ -252,13 +252,14 @@
             // store Indexes for this address
             Indexes = idx.data
 
+            ShapeData['p'+Indexes.precinct] = ds
             // draw markers
             dropHomePin()
             dropPollingPin()
 
-            Shapes['p'+Indexes.precinct] = L.geoJSON(ds.geoJSON, ds.style).addTo(Lmap)
+            var shape = L.geoJSON(ds.geoJSON, ds.style).addTo(Lmap)
 
-
+            Shapes.division = shape
 
             grouper()
 
