@@ -246,6 +246,7 @@
             console.log('$.when -> h, pp, ds, idx', h, pp, ds, idx)
 
             // preserve coordinate data
+            idx.data.coordinates = []
             idx.data.coordinates.home = h.coordinates
             idx.data.coordinates.polling = pp.coordinates
 
