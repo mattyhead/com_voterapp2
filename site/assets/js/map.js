@@ -241,7 +241,7 @@
 
 
         $.when(home, pollingPlace, indexer).then(function(h, pp, idx) {
-            console.log('$.when -> h, pp, ds, idx', h, pp, ds, idx)
+            console.log('$.when -> h, pp, idx', h, pp, idx)
 
             // preserve coordinate data
             idx.data.coordinates = []
