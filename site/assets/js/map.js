@@ -866,8 +866,12 @@
     function drawMap(shapeData, label) {
         console.log('drawMap')
 
-        Shapes[label] = L.geoJSON(shapeData.geoJSON, shapeData.style)
-        Shapes[label].addTo(Lmap)
+        var shape = L.geoJSON(shapeData.geoJSON, shapeData.style)
+        shape.addTo(Lmap)
+
+        shapeData.shape = shape
+
+        Shapes[label] = shapeData
         grouper()
             // if (!b) {
             //     clearShapes();
