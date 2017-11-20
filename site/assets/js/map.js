@@ -327,7 +327,7 @@
                 enableOption("US_CONGRESS")
 
                 Shapes.congress = L.geoJSON(data.geoJSON, data.style)
-                Shapes.contress.addTo(Lmap)
+                Shapes.congress.addTo(Lmap)
                 grouper()
             })
         })
