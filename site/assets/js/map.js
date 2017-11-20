@@ -229,7 +229,6 @@
         // any time we do a new address, we repopoulate the Runonce functions -- for now
         setRunonce()
         console.log(Runonce)
-        Runonce = []
         Labels = []
         Indexes = []
         // eat home and pp markers
