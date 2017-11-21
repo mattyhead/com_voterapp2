@@ -263,7 +263,7 @@
 
             divisionShape(Indexes.precinct, Services.shape_city_division).done(function(data) {
                 ShapeData.division = data
-                drawMap(ShapeData.division, 'division')
+                drawShape(ShapeData.division, 'division')
                 grouper()
             })
 
@@ -335,7 +335,7 @@
                             };
                             tabFunc(e);
                             getDivisionShape(Indexes.precinct).done(function(f) {
-                                drawMap([{
+                                drawShape([{
                                     name: f.name,
                                     coordinates: f.coordinates
                                 }]);
@@ -740,8 +740,8 @@
         bounds = new google.maps.LatLngBounds();
     }
 
-    function drawMap(shapeData, label) {
-        console.log('drawMap')
+    function drawShape(shapeData, label) {
+        console.log('drawShape')
 
         var shape = L.geoJSON(shapeData.geoJSON, shapeData.style)
         shape.addTo(Lmap)
@@ -949,27 +949,27 @@
                 resetBounds();
                 switch (a.val()) {
                     case "DIVISION":
-                        drawMap([b]);
+                        drawShape(ShapeData.division, 'division');
                         break;
 
                     case "WARD":
-                        drawMap([wardData]);
+                        drawShape(ShapeData.ward, 'ward');
                         break;
 
                     case "COUNCIL":
-                        drawMap([councilData]);
+                        drawShape(ShapeData.council, 'council');
                         break;
 
                     case "STATE_REP":
-                        drawMap([stateRepData]);
+                        drawShape(ShapeData.house, 'house');
                         break;
 
                     case "STATE_SENATE":
-                        drawMap([stateSenateData]);
+                        drawShape(ShapeData.senate, 'senate');
                         break;
 
                     case "US_CONGRESS":
-                        drawMap([usCongressData]);
+                        drawShape(ShapeData.federal, 'federal');
                         break;
 
                     default:
@@ -1217,7 +1217,7 @@
             var j = Array.prototype.slice.call(arguments);
             if (j.length > 0) {
                 resetBounds();
-                drawMap(j, true);
+                drawShape(j, true);
             }
         });
     }
